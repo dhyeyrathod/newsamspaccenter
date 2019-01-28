@@ -359,4 +359,9 @@ class Website extends CI_Model
 			$this->db->trans_rollback();return json_encode(array('status' => 'failure'));
 		}
 	}
+	public function getProfileImageInfoByID($profile_id)
+	{
+		$sql_str = "SELECT * FROM spa_profile_images WHERE fk_profile_id = ".$this->db->escape($profile_id);
+		return $this->db->query($sql_str)->result();
+	}
 }

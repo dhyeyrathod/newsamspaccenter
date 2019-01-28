@@ -57,15 +57,32 @@ class Members extends MY_Controller
 		$profile_id = $this->friend->base64url_decode($this->uri->segment(3));
 		$isupdate = TRUE ;
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
-			$this->response = json_decode($this->website->setProfile($this->input->post(),$this->session->userdata('user_id'),$isupdate,$this->input->post('profile_id')));
-			// echo "<pre>";print_r($this->response);exit();
+			$this->response = json_decode($this->website->setProfile($this->input->post(),$this->session->userdata('user_id'),$this->input->post('profile_id'),$isupdate));
 			if ($this->response->status == "success") {
-				$this->website->setSpaProfileLocation($this->input->post(),$this->session->userdata('user_id'),$isupdate,$this->input->post('profile_id'));
-				$this->website->setSpaProfileServicesCategory($this->input->post(),$this->session->userdata('user_id'),$isupdate,$this->input->post('profile_id'));
+				$this->website->setSpaProfileLocation($this->input->post(),$this->session->userdata('user_id'),$this->input->post('profile_id'),$isupdate);
+				$this->website->setSpaProfileServicesCategory($this->input->post(),$this->session->userdata('user_id'),$this->input->post('profile_id'),$isupdate);
+				if (count($_FILES['image_to_upload']['name'])) {
+					for($i = 0 ; $i < count($_FILES['image_to_upload']['name']) ; $i++ ) {
+						$_FILES['file']['name']     	= $_FILES['image_to_upload']['name'][$i];
+		                $_FILES['file']['type']     	= $_FILES['image_to_upload']['type'][$i];
+		                $_FILES['file']['tmp_name'] 	= $_FILES['image_to_upload']['tmp_name'][$i];
+		                $_FILES['file']['error']     	= $_FILES['image_to_upload']['error'][$i];
+		                $_FILES['file']['size']     	= $_FILES['image_to_upload']['size'][$i];
+		                $this->load->library('upload', $this->friend->profile_image_upload());
+		                if ($this->upload->do_upload('file')) {
+		                	$this->website->setProfileImage($this->upload->data('file_name'),$this->input->post('profile_id'),$this->session->userdata('user_id'));
+		                } else {
+		                	$this->data['error'] = array('status' =>  FALSE,'message'=>'Error while upload image');
+		                }
+					}
+				}
 				redirect(base_url('members/edit_profile/').$this->friend->base64url_encode($this->input->post('profile_id')));
 			}
 		}
 		$this->data['profile_data'] = $this->website->getSingleProfileDataById($profile_id);
+		$this->data['image_key'] = $this->website->getProfileImageInfoByID($profile_id);
+
+
 		$this->data['all_cities_key'] = $this->website->getAllCitiesDataByCountryName($this->session->userdata('current_locaation_country'));
 		$this->data['category_key'] = $this->website->getRandomCategoryLimitedBySix(100);
 		$this->data['services_key'] = $this->website->getRandomServicesLimitedten(100);
@@ -114,5 +131,9 @@ class Members extends MY_Controller
 		if ($this->res->status == "success") {
 			$this->session->set_flashdata('success','Profile Deleted successfully..!!');redirect('members/profile_list');
 		}
+	}
+	public function delete_profile_image()
+	{
+		
 	}
 }
