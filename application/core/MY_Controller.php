@@ -13,6 +13,7 @@ class MY_controller extends CI_Controller
 		$this->load->library('session');
 		$this->load->helper('friend');
 		$this->load->library('pagination');
+		$this->load->library('user_agent');
 		$this->friend = new friend ;
 		$this->set_current_locaation();
 	}

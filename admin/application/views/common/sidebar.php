@@ -28,7 +28,9 @@
             </ul>
         </li>
         <li><a class="app-menu__item <?php if ($this->uri->segment(1) == "export_import") { echo "active" ; } ?>" href="<?= base_url('export_import') ?>"><i class="app-menu__icon fa fa-list-alt"></i><span class="app-menu__label">Export Import</span></a>
-        </li
+        </li>
+        <li><a class="app-menu__item <?php if ($this->uri->segment(2) == "area_sync") { echo "active" ; } ?>" href="<?= base_url('home/area_sync') ?>"><i class="app-menu__icon fa fa-list-alt"></i><span class="app-menu__label">Area sync</span></a>
+        </li>
     </ul>
     
 </aside>

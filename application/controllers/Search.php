@@ -25,13 +25,22 @@ class Search extends MY_Controller
 			$config['base_url'] = site_url('search')."?query=".$this->input->get('query')."&services=".$this->input->get('services')."&city=".explode('/',$this->filter_search['city_id'])[0];
 			$config['total_rows'] = $this->website->countQuerySearchResult($this->filter_search);
 
-			$config['per_page'] = 5;
+			$config['per_page'] = 10;
 
-			$offset = $this->filter_search['city_id'] ? explode('/',$this->filter_search['city_id'])[1] : 0 ;
-
-			$this->data['search_result_key'] = $this->website->getQuerySearchResult($this->filter_search,$config['per_page'] , $offset);
+			$offset = '';
+			
+			if ($this->filter_search['city_id'] != 0) {
+				if (substr_count($this->filter_search['city_id'] , '/')) {
+					$offset = explode('/',$this->filter_search['city_id'])[1];
+				} else {
+					$offset = 1 ;	
+				}
+			}
 
 			$this->pagination->initialize($config); 
+			
+			$this->data['search_result_key'] = $this->website->getQuerySearchResult($this->filter_search,$config['per_page'],$offset);
+
 
 			$this->load->view('search_view',$this->data);
 		} 

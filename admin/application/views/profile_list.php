@@ -34,6 +34,7 @@
                                         <th>ID</th>
                                         <th>Profile title</th>
                                         <th>Created Date</th>
+                                        <th>Location</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -44,7 +45,8 @@
                                             <td><?= $key + 1 ?></td>
                                             <td><?= $spa_list_data->title ?></td>
                                             <td><?= $spa_list_data->created_date ?></td>
-                                            <td><button class="btn btn-primary"> Edit </button></td>
+                                            <td><?= $spa_list_data->city_name ?></td>
+                                            <td><a href="<?= base_url('spa_profile/edit_profile') ?>/<?= $spa_list_data->id ?>"><button class="btn btn-primary"> Image Upload </button></a></td>
                                             <td><button class="btn btn-danger"> Delete </button></td>
                                         </tr>    
                                     <?php endforeach ; ?>

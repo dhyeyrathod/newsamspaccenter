@@ -311,7 +311,48 @@ class Admin extends CI_Model
 	}
 	public function getAllSpalist()
 	{
-		$sql_str = "SELECT id , title , created_date FROM spa_profile";
+		$sql_str = "SELECT spa_profile.id as id , spa_profile.title as title , spa_profile.created_date AS created_date ,spa_profile.contact_number as contact_number , spa_profile.description as description , spa_profile.ranking as ranking , spa_profile.email_id as email_id , spa_profile_location.fk_counry_id as counry_id , spa_profile_location.country_name as country_name , spa_profile_location.fk_city_id as city_id , spa_profile_location.city_name as city_name ,spa_profile_location.address as address , spa_profile_location.google_map_url as google_map_url ,spa_profile_location.fk_area_id as area_id , spa_profile_location.area_name as area_name , spa_profile_location.pincode as pincode , spa_profile_services_category.fk_category_id as category_id , spa_profile_services_category.fk_category_name as category_name , spa_profile_services_category.fk_services_id as services_id , spa_profile_services_category.fk_services_names as services_names , ( SELECT image_name FROM spa_profile_images WHERE fk_profile_id = spa_profile.id ORDER BY RAND() LIMIT 1 ) AS image FROM spa_profile JOIN spa_profile_location ON spa_profile.id = spa_profile_location.fk_profile_id JOIN spa_profile_payment_info ON spa_profile.id = spa_profile_payment_info.fk_profile_id JOIN spa_profile_services_category ON spa_profile.id = spa_profile_services_category.fk_profile_id";
 		return $this->db->query($sql_str)->result();
+	}
+	public function getProfileInfoByID($profile_id)
+	{
+		$sql_str = "SELECT * FROM spa_profile WHERE id = ".$this->db->escape($profile_id);
+		return $this->db->query($sql_str)->row();
+	}
+	public function getProfileImageByID($profile_id)
+	{
+		$sql_str = "SELECT * FROM spa_profile_images WHERE fk_profile_id = ".$this->db->escape($profile_id);
+		return $this->db->query($sql_str)->result();
+	}
+	public function getProfileLocationById($profile_id)
+	{
+		$sql_str = "SELECT * FROM spa_profile_location WHERE fk_profile_id = ".$this->db->escape($profile_id);
+		return $this->db->query($sql_str)->row();
+	}
+	/*
+	* area import logic
+	*/
+	public function getAllprofileLocationDetails()
+	{
+		$sql_str = "SELECT * FROM spa_profile_location WHERE fk_area_id = '0' LIMIT 50";
+		return $this->db->query($sql_str)->result(); 	
+	}
+	public function setaAreaMasterByProfileInfo($pincode_api,$profile_data)
+	{
+		if (!$this->db->get_where('area', array('pincode' => $profile_data->pincode))->num_rows()) {
+			$sql_str = "INSERT INTO area SET fk_country_id = ".$this->db->escape($profile_data->fk_counry_id).",pincode = ".$this->db->escape($profile_data->pincode).",area_name = ".$this->db->escape($pincode_api->PostOffice[0]->Name).",fk_city_id = ".$this->db->escape($profile_data->fk_city_id).",created_date = NOW() , status = TRUE , city_name = ".$this->db->escape($profile_data->city_name).",country_name = ".$this->db->escape($profile_data->country_name);$this->db->query($sql_str);
+			$areaMaster['area_id'] = $this->db->insert_id();$areaMaster['area_name'] = $pincode_api->PostOffice[0]->Name;
+			return json_encode(array('status' => 'success','area_info'=>$areaMaster,'message'=>'area created successfully..!!'));
+		} else {
+			$areaMaster['area_id'] = $this->db->get_where('area',array('pincode'=>$profile_data->pincode))->row()->id;$areaMaster['area_name'] = $pincode_api->PostOffice[0]->Name ;
+			return json_encode(array('status' => 'success','area_info'=>$areaMaster,'message'=>'Area is alrady present'));
+		}
+	}
+	public function setProfileArea($set_master_area_res,$profile_location_info)
+	{
+		if ($profile_location_info->fk_area_id == 0 || $profile_location_info->area_name == '') {
+			$sql_str = "UPDATE spa_profile_location SET fk_area_id = ".$this->db->escape($set_master_area_res->area_info->area_id).",area_name = ".$this->db->escape($set_master_area_res->area_info->area_name)." WHERE pincode = ".$this->db->escape($profile_location_info->pincode) ;
+			return $this->db->query($sql_str);
+		}	
 	}
 }

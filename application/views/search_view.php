@@ -135,7 +135,7 @@
                         </div>
                     </div>
                 </section>
-                <h4 class="text-center"></h4>
+                <h4 class="text-center"><?= $this->pagination->create_links(); ?></h4>
                 <?php $this->load->view('common/footer') ?>
         </main>
         <?php $this->load->view('common/js') ?>

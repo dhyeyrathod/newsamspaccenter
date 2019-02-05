@@ -134,6 +134,10 @@ class Members extends MY_Controller
 	}
 	public function delete_profile_image()
 	{
-		
+		$image_id = $this->friend->base64url_decode($this->uri->segment(3));
+		if ($this->website->deleteImageByID($image_id)) {
+			$this->session->set_flashdata('success','Image Deleted successfully..!!');
+			redirect($this->agent->referrer());	
+		}
 	}
 }

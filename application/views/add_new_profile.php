@@ -22,16 +22,9 @@
                <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                      <div class="dashboard-main-disc">
-                        <div class="heading-inner">
-                          <a class="btn btn-primary" href="<?= base_url('members/new_profile') ?>">Add New Profile</a>
-                           <a class="btn btn-primary" href="<?= base_url('members/new_profile') ?>">Profile List</a>
-                           <a class="btn btn-primary" href="<?= base_url('members/dashboard') ?>">Dashboard</a>
-                        </div>
-                        <?php if ($this->session->flashdata('success')) : ?>
-                            <div class="alert alert-success">
-                                <strong>Success!</strong> <?= $this->session->flashdata('success') ?>.
-                            </div>
-                        <?php endif ; ?>
+                      
+                        <?php $this->load->view('common/member_header') ?>
+
                         <?= form_open_multipart('members/new_profile') ?>
                         <div class="row">
                               <div class="col-md-6 col-sm-12">

@@ -74,4 +74,27 @@ class Spa_profile extends MY_Controller
 		$data['spa_list'] = $this->admin->getAllSpalist();
 		$this->load->view('profile_list',$data);
 	}
+	public function edit_profile()
+	{
+		if ($this->input->server('REQUEST_METHOD') == 'POST') {
+			for ($i = 0 ; $i < count($_FILES['image_to_upload']['name']) ; $i++ ) {
+				$_FILES['file']['name']     	= $_FILES['image_to_upload']['name'][$i];
+                $_FILES['file']['type']     	= $_FILES['image_to_upload']['type'][$i];
+                $_FILES['file']['tmp_name'] 	= $_FILES['image_to_upload']['tmp_name'][$i];
+                $_FILES['file']['error']     	= $_FILES['image_to_upload']['error'][$i];
+                $_FILES['file']['size']     	= $_FILES['image_to_upload']['size'][$i];
+                $this->load->library('upload', $this->friend->profileImageUploadConfig());
+                if ($this->upload->do_upload('file')) {
+                	$this->admin->setSpaProfileImages($this->upload->data('file_name'),$this->input->post('profile_id'));
+                } 
+			}
+			$this->session->set_flashdata('success','Profile Image Update successfully');
+            $url = base_url('spa_profile/edit_profile')."/".$this->input->post('profile_id');
+                	redirect($url);
+		}
+		$profile_id = $this->uri->segment(3);
+		$data['profile_data'] = $this->admin->getProfileInfoByID($profile_id);
+		$data['profile_images'] = $this->admin->getProfileImageByID($profile_id);
+		$this->load->view('edit_profile',$data);
+	}
 }

@@ -56,7 +56,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Image Upload</label>
                                 <input class="form-control" id="image_to_upload" name="image_to_upload[]" multiple type="file">
-                                <span id="image_to_upload_error"></span>                             
+                                <span id="image_to_upload_error"></span>                           
                             </div>
                             <div class="form-group">
                                 <label for="exampleSelect1">Payment Method Select</label>
