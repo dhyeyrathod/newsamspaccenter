@@ -3,11 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--  -->
-        <!--    Document Title-->
-        <!-- =============================================-->
-        <title>Spa in India, Spa Treatments in India</title>
-        <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+        <title><?= $meta_info->title ?></title>
+        <meta name="description" content="<?= $meta_info->description ?>">
+        <meta name="keywords" content="<?= $meta_info->Keyword ?>">
         <?php $this->load->view('common/css') ?>
     </head>
     <body data-spy="scroll"  data-offset="60">
@@ -110,7 +108,7 @@
                                     <div class="col-lg-12">
                                         <?php foreach ($get_services_profile as $key => $get_services_profile_data) : ?>
                                         <div class="row align-items-center box-shadow border color-9 mb-3 mx-0 pt-3 pb-1">
-                                            <div class="col-sm-3"><a href="<?= base_url().str_replace(' ','-',$get_services_profile_data->title)."/info/".$this->friend->base64url_encode($get_services_profile_data->id) ?>"> <img class="w-100" src="<?= base_url('assets') ?>/images/services-1.jpg"></a></div>
+                                            <div class="col-sm-3"><a href="<?= base_url().str_replace(' ','-',$get_services_profile_data->title)."/info/".$this->friend->base64url_encode($get_services_profile_data->id) ?>"> <img class="w-100" style="height: 130px" src="<?= base_url('admin/spa_image') ?>/<?= isset($get_services_profile_data->image) ? $get_services_profile_data->image : "default.jpg" ?>"></a></div>
                                             <div class="col-sm-6 color-1">
                                                 <p class="lead color-primary fw-600 mb-0"><?= $get_services_profile_data->title ?></p>
                                                 <div class="color-warning">

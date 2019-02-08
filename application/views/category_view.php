@@ -3,8 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Spa in India, Spa Treatments in India</title>
-        <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+        <title><?= $meta_info->title ?></title>
+        <meta name="description" content="<?= $meta_info->description ?>">
+        <meta name="keywords" content="<?= $meta_info->Keyword ?>">
         <?php $this->load->view('common/css') ?>
     </head>
     <body data-spy="scroll"  data-offset="60">
@@ -105,11 +106,9 @@
                             <div class="col-lg-9 pl-0">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        
-
                                         <?php foreach ($get_category_profile as $key => $get_category_profile_data) : ?>
                                             <div class="row align-items-center box-shadow border color-9 mb-3 mx-0 pt-3 pb-1">
-                                                <div class="col-sm-3"><a href="<?= base_url().str_replace(' ','-',$get_category_profile_data->title)."/info/".$this->friend->base64url_encode($get_category_profile_data->id) ?>"> <img class="w-100" src="<?= base_url('assets') ?>/images/services-2.jpg"></a></div>
+                                                <div class="col-sm-3"><a href="<?= base_url().str_replace(' ','-',$get_category_profile_data->title)."/info/".$this->friend->base64url_encode($get_category_profile_data->id) ?>"> <img class="w-100" src="<?= base_url('admin/spa_image') ?>/<?= isset($get_category_profile_data->image) ? $get_category_profile_data->image : "default.jpg" ?>"></a></div>
                                                 <div class="col-sm-6 color-1">
                                                     <p class="lead color-primary fw-600 mb-0"><?= $get_category_profile_data->title ?></p>
                                                     <div class="color-warning">
@@ -123,9 +122,9 @@
                                                     <div class="color-5 mt-2">
                                                         <a class="color-5 fs--1" href="#"> <span class="fa fa-arrow-circle-right mr-1"></span><?= $get_category_profile_data->category_name ?></a>
                                                     </div>
-                                                </div>
+                                                </div>  
                                                 <div class="col-sm-3 color-1">
-                                                    <a href="<?= base_url().str_replace(' ','-',$get_category_profile_data->title)."/info/".$this->friend->base64url_encode($get_category_profile_data->id) ?>" class="btn btn-icon btn-primary btn-icon-right btn-capsule fr">
+                                                    <a href="<?= base_url('home/profile_booking') ?>/<?= $this->friend->base64url_encode($get_category_profile_data->id) ?>" class="btn btn-icon btn-primary btn-icon-right btn-capsule fr">
                                                     <span class="fa fa-arrow-circle-right color-warning"></span> Book Online</a>
                                                 </div>
                                                 <div class="rating"> <a href="book-details.html"><span class="fa fa-star mr-1 color-warning"></span> Click here to view your <b>friends rating</b></a></div>

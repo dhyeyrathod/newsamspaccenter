@@ -123,7 +123,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3 color-1">
-                                                    <a href="<?= base_url().str_replace(' ','-',$get_category_profile_data->title)."/info/".$this->friend->base64url_encode($get_category_profile_data->id) ?>" class="btn btn-icon btn-primary btn-icon-right btn-capsule fr">
+                                                    <a href="<?= base_url('home/profile_booking') ?>/<?= $this->friend->base64url_encode($get_category_profile_data->id) ?>" class="btn btn-icon btn-primary btn-icon-right btn-capsule fr">
                                                     <span class="fa fa-arrow-circle-right color-warning"></span> Book Online</a>
                                                 </div>
                                                 <div class="rating"> <a href="book-details.html"><span class="fa fa-star mr-1 color-warning"></span> Click here to view your <b>friends rating</b></a></div>

@@ -3,7 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff">
+        <title><?= $meta_info->title ?></title>
+        <meta name="description" content="<?= $meta_info->description ?>">
+        <meta name="keywords" content="<?= $meta_info->Keyword ?>">
         <?php $this->load->view('common/css') ?>
     </head>
     <body data-spy="scroll"  data-offset="60">
@@ -160,7 +162,7 @@
                                                 <a href="<?= base_url().str_replace(' ','-',$free_profile_data->title)."/info/".$this->friend->base64url_encode($free_profile_data->id) ?>">
                                                 <div class="cuadro_intro_hover ">
                                                     <p style="text-align:center;">
-                                                        <img src="<?= base_url('assets') ?>/images/portrait-1.jpg" class="img-responsive" alt="<?= str_replace(' ','-',$free_profile_data->title) ?>">
+                                                        <img src="<?= base_url('admin/spa_image') ?>/<?= $free_profile_data->image ? $free_profile_data->image : "default.jpg" ?>" class="img-responsive" alt="<?= str_replace(' ','-',$free_profile_data->title) ?>">
                                                     </p>
                                                     <div class="caption">
                                                         <div class="blur"></div>

@@ -11,7 +11,6 @@ class Account extends MY_Controller
 	}
 	public function login()
 	{
-
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 			$this->form_validation->set_rules('email', 'Email Id', 'required');
 			$this->form_validation->set_rules('password', 'Password', 'required');

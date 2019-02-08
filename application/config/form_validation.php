@@ -50,6 +50,33 @@ $config = array(
                                             'rules' => 'required'
                                          )
                                     ),
+                 'booking' => array(
+                                    array(
+                                            'field' => 'name',
+                                            'label' => 'Name',
+                                            'rules' => 'required'
+                                        ),
+                                    array(
+                                            'field' => 'email',
+                                            'label' => 'Email ID',
+                                            'rules' => 'required'
+                                        ),
+                                    array(
+                                            'field' => 'contact',
+                                            'label' => 'Contact Number',
+                                            'rules' => 'required'
+                                        ),
+                                    array(
+                                            'field' => 'date_to_visite',
+                                            'label' => 'Date To visit',
+                                            'rules' => 'required'
+                                        ),
+                                    array(
+                                            'field' => 'pincode',
+                                            'label' => 'Pincode',
+                                            'rules' => 'required'
+                                        )
+                                    ),
             'spa_profile' => array(
                                     array(
                                             'field' => 'title',
