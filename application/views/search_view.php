@@ -107,7 +107,8 @@
                                     <div class="col-lg-12">
                                         <?php foreach ($search_result_key as $key => $get_category_profile_data) : ?>
                                             <div class="row align-items-center box-shadow border color-9 mb-3 mx-0 pt-3 pb-1">
-                                                <div class="col-sm-3"><a href="<?= base_url().str_replace(' ','-',$get_category_profile_data->title)."/info/".$this->friend->base64url_encode($get_category_profile_data->id) ?>"> <img class="w-100" src="<?= base_url('assets') ?>/images/services-2.jpg"></a></div>
+                                                <?php  ?>
+                                                <div class="col-sm-3"><a href="<?= base_url().str_replace(' ','-',$get_category_profile_data->title)."/info/".$this->friend->base64url_encode($get_category_profile_data->id) ?>"> <img class="w-100" style="height: 130px" src="<?= base_url('admin/spa_image') ?>/<?= isset($get_area_profile_data->image) ? $get_area_profile_data->image : "default.jpg" ?>"></a></div>
                                                 <div class="col-sm-6 color-1">
                                                     <p class="lead color-primary fw-600 mb-0"><?= $get_category_profile_data->title ?></p>
                                                     <div class="color-warning">

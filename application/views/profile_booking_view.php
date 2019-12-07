@@ -89,7 +89,7 @@
                                                     </div>
                                                     <input type="hidden" value="<?= $profile_id ?>" name="profile_id">
                                                     <div class="col-12 mt-4">
-                                                        <button class="btn btn-success">submit</button>
+                                                        <button class="btn btn-md-lg btn-primary">Send Now</button>
                                                     </div>
                                                 </div>
                                             </form>
